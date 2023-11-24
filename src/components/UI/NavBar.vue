@@ -7,6 +7,7 @@
             <nav-button @click="$router.push('/converter')"
                 >Конвертер валют</nav-button
             >
+            <nav-button @click="$router.push('/login')">Войти</nav-button>
 
             <nav-button @click="$router.push('/#')">Поступления</nav-button>
             <nav-button @click="$router.push('/#')"
