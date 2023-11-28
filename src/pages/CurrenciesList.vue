@@ -123,7 +123,6 @@ export default defineComponent({
             'addRadioInputValueToComponentPropertyOnMounted',
         ]),
 
-        // Добавление значения optionInput в свойство компонента и localStorage при монтировании компонента:
         updateOptionInputOnMounted(): void {
             this.fetchCurrencies();
             this.addOptionValueToOptionInputAndLocalStorageOnMounted();
@@ -136,7 +135,7 @@ export default defineComponent({
             this.findCurrencieWithCurrencyCode();
             this.optionInput = localStorage.getItem('optionInput') || '';
         },
-        // Посчитать конвертацию согласно выбранным параметрам валюты и типа операции:
+
         calculate(): void {
             this.calculateCurrency();
             this.makeConvertListItem();
@@ -144,7 +143,6 @@ export default defineComponent({
             this.$router.push({ name: 'resultPage' });
         },
 
-        // Отмена операции с очисткой input и amount в localStorage и переход на страницу конвертера:
         cancelOperation(): void {
             this.$router.push({ name: 'converterPage' });
         },
