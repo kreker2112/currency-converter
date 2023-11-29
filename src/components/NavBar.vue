@@ -5,8 +5,7 @@
         </div>
         <div class="navbar__btns">
             <ButtonComponent
-                class="button"
-                :buttonStyles="buttonStyles"
+                button-style="nav-button"
                 v-for="button in navButtons"
                 :key="button.id"
                 @click="$router.push(button.link)"
@@ -29,19 +28,6 @@ export default defineComponent({
                 { id: uuidv4(), name: 'Уплата налогов', link: '/#' },
                 { id: uuidv4(), name: 'О сайте', link: '/#' },
             ],
-            buttonStyles: {
-                backgroundColor: '#06998d',
-                border: 'none',
-                borderRadius: '5px',
-                color: '#fff',
-                padding: '10px 15px',
-                fontSize: '1rem',
-                fontFamily:
-                    'LucidaSans, LucidaSansRegular, LucidaGrande, LucidaSansUnicode, Geneva, Verdana, sansSerif',
-                cursor: 'pointer',
-                boxShadow: '2px 2px 2px #a79e84bd',
-                transition: 'all 0.9s',
-            },
         };
     },
 });
@@ -78,12 +64,5 @@ export default defineComponent({
     justify-content: flex-end;
     gap: 15px;
     padding-right: 20px;
-}
-.button:hover {
-    background-color: #fff !important;
-    color: #12c0b2 !important;
-    box-shadow: 2px 2px 2px #18aa66;
-    transform: scale(1.01);
-    transition: all 0.9s;
 }
 </style>

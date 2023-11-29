@@ -6,8 +6,7 @@
         </div>
         <div class="buttons buttons__contaier">
             <ButtonComponent
-                class="button"
-                :buttonStyles="buttonStyles"
+                button-style="cancel-result"
                 @click="cancelOperation"
             >
                 Вернуться в начало

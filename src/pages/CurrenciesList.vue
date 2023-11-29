@@ -17,8 +17,18 @@
                     name="currency"
                     @change="findSelectedCurrency"
                 >
-                    <option value="USD">USD (Доллар США)</option>
-                    <option value="EUR">EUR (Евро)</option>
+                    <option
+                        class="currency currency-select__option_USD"
+                        value="USD"
+                    >
+                        USD (Доллар США)
+                    </option>
+                    <option
+                        class="currency currency-select__option_EUR"
+                        value="EUR"
+                    >
+                        EUR (Евро)
+                    </option>
                 </select>
             </div>
 
@@ -54,15 +64,13 @@
             </div>
             <div class="buttons buttons__contaier">
                 <ButtonComponent
-                    class="button"
-                    :buttonStyles="buttonStyles"
+                    button-style="currencies-list"
                     @click.prevent="calculate"
                 >
                     Посчитать
                 </ButtonComponent>
                 <ButtonComponent
-                    class="button"
-                    :buttonStyles="buttonStyles"
+                    button-style="currencies-list"
                     @click.prevent="cancelOperation"
                 >
                     Отменить операцию
@@ -85,26 +93,10 @@ export default defineComponent({
     data(): {
         amount: Amount;
         optionInput: OptionInput;
-        buttonStyles: Record<string, string>;
     } {
         return {
             amount: '',
             optionInput: '',
-            buttonStyles: {
-                marginTop: '20px',
-                backgroundColor: '#18aa66',
-                border: 'none',
-                color: '#fff',
-                padding: '10px 15px',
-                fontSize: '1rem',
-                fontFamily:
-                    'LucidaSans, LucidaSansRegular, LucidaGrande, LucidaSansUnicode, Geneva, Verdana, sansSerif',
-                cursor: 'pointer',
-                transition: 'all 0.9s',
-                width: '20em',
-                height: '65px',
-                borderRadius: '10px',
-            },
         };
     },
 
@@ -216,7 +208,7 @@ export default defineComponent({
 }
 
 .currency.currency-select__list {
-    width: auto;
+    width: fit-content;
     font-size: 20px;
     font-weight: bold;
     padding: 5px;

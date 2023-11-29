@@ -1,10 +1,7 @@
 <template>
     <div class="container convertation-history__container">
         <h1 class="convertation-history__header">История конвертаций:</h1>
-        <ButtonComponent
-            class="button"
-            :buttonStyles="buttonStyles"
-            @click="clearHistory"
+        <ButtonComponent button-style="cleanup-history" @click="clearHistory"
             >Очистить историю</ButtonComponent
         >
         <transition-group name="convertation-history__list"
@@ -90,12 +87,6 @@ export default defineComponent({
     text-align: center;
 }
 
-.button:hover {
-    background-color: #6ac054;
-    box-shadow: 2px 2px 2px #18aa66;
-    transform: scale(1.01);
-    transition: all 0.9s;
-}
 .convertation-history__list {
     display: flex;
     flex-direction: column;

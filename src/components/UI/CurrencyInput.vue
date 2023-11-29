@@ -9,8 +9,7 @@
             @input="updateInput"
         />
         <ButtonComponent
-            class="button"
-            :buttonStyles="buttonStyles"
+            button-style="currency-input_cleanup"
             @click="clearInput"
         >
             Очистить
@@ -86,6 +85,7 @@ input[type='number'] {
     display: flex;
     flex-direction: row;
     gap: 0;
+    /* height: 100px; */
 }
 .button:hover {
     background-color: #6ac054 !important;
