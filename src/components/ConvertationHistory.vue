@@ -1,10 +1,11 @@
 <template>
     <div class="container convertation-history__container">
         <h1 class="convertation-history__header">История конвертаций:</h1>
-        <ButtonForConvert
-            class="button button__cleanup-history"
+        <ButtonComponent
+            class="button"
+            :buttonStyles="buttonStyles"
             @click="clearHistory"
-            >Очистить историю</ButtonForConvert
+            >Очистить историю</ButtonComponent
         >
         <transition-group name="convertation-history__list"
             ><div
@@ -20,33 +21,49 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default defineComponent({
     name: 'ConvertationHistory',
+    data(): {
+        buttonStyles: Record<string, string>;
+    } {
+        return {
+            buttonStyles: {
+                fontSize: '12px',
+                margin: '0 0 15px 0px',
+                width: '150px',
+                height: '30px',
+                border: '2px solid #18aa66',
+                backgroundColor: '#18aa66',
+                boxShadow: '2px 2px 2px #6ac054',
+                color: '#fff',
+                cursor: 'pointer',
+                borderRadius: '10px 5px 10px 5px',
+            },
+        };
+    },
 
     computed: {
         ...mapGetters(['getCurrenciesHistory']),
     },
 
     mounted() {
-        // При создании компонента инициализируем данные из localStorage
         const historyInLocalStorage: string | null = localStorage.getItem(
-            'convertListItemsArray' || '[]',
+            'convertListItemsArray',
         );
-
         if (historyInLocalStorage) {
             const convertListItemsArray: string[] = JSON.parse(
                 historyInLocalStorage,
             );
-            this.addConvertListItemToHistoryArrayAction(convertListItemsArray);
+            this.addConvertListItemToHistoryArray(convertListItemsArray);
         }
     },
 
     methods: {
-        ...mapActions([
+        ...mapMutations([
             'cleanCurrenciesHistory',
-            'addConvertListItemToHistoryArrayAction',
+            'addConvertListItemToHistoryArray',
         ]),
 
         clearHistory(): void {
@@ -73,12 +90,11 @@ export default defineComponent({
     text-align: center;
 }
 
-.button.button__cleanup-history {
-    margin-bottom: 15px;
-    width: 150px;
-    height: 30px;
-    font-size: 12px;
-    padding: 5px;
+.button:hover {
+    background-color: #6ac054;
+    box-shadow: 2px 2px 2px #18aa66;
+    transform: scale(1.01);
+    transition: all 0.9s;
 }
 .convertation-history__list {
     display: flex;

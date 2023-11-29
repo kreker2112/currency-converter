@@ -12,6 +12,7 @@
             <div class="currency currency-select">
                 <select
                     id="currency-select"
+                    ref="currencySelect"
                     class="currency currency-select__list"
                     name="currency"
                     @change="findSelectedCurrency"
@@ -25,14 +26,13 @@
                 <div class=".currency currency__container">
                     <input
                         id="rateBuy"
+                        ref="radioInput"
                         type="radio"
-                        class="option-input radio"
+                        class="radio-input radio"
                         name="convert"
                         value="rateBuy"
                         checked
-                        @click="
-                            addRadioInputValueToComponentPropertyWithItsChanges
-                        "
+                        @click="saveRadioInputValue"
                     />
                     <label class="currency currency-label" for="convertUSDtoUAH"
                         >UAH to {{ optionInput }}</label
@@ -42,13 +42,12 @@
                 <div class=".currency currency__container">
                     <input
                         id="rateSell"
+                        ref="radioInput"
                         type="radio"
-                        class="option-input radio"
+                        class="radio-input radio"
                         name="convert"
                         value="rateSell"
-                        @click="
-                            addRadioInputValueToComponentPropertyWithItsChanges
-                        "
+                        @click="saveRadioInputValue"
                     />
                     <label class="currency currency-label" for="convertUAHtoUSD"
                         >{{ optionInput }} to UAH</label
@@ -88,8 +87,8 @@ export default defineComponent({
         optionInput: OptionInput;
     } {
         return {
-            amount: '' as Amount,
-            optionInput: '' as OptionInput,
+            amount: '',
+            optionInput: '',
         };
     },
 
@@ -98,40 +97,50 @@ export default defineComponent({
     },
 
     mounted(): void {
-        this.amount = localStorage.amount as string;
+        this.amount = this.getAmount;
         this.fetchCurrencies();
         this.updateOptionInputOnMounted();
-        this.addRadioInputValueToComponentPropertyOnMounted();
+        this.saveRadioInputValue();
 
         this.optionInput = localStorage.getItem('optionInput') || '';
     },
 
     methods: {
         ...mapMutations([
-            'addRadioInputValueToComponentPropertyWithItsChanges',
-            'addOptionValueToOptionInputAndLocalStorageWithItsChanges',
-            'findCurrencieCodeWithCurrencyMapAndAddToState',
+            'setValueInput',
+            'setOptionInput',
+            'findCurrencieCode',
             'findCurrencieWithCurrencyCode',
             'calculateCurrency',
             'makeConvertListItem',
             'addConvertListItemToHistoryArray',
         ]),
-        ...mapActions([
-            'addConvertListItemToHistoryArrayAction',
-            'fetchCurrencies',
-            'addOptionValueToOptionInputAndLocalStorageOnMounted',
-            'addRadioInputValueToComponentPropertyOnMounted',
-        ]),
+        ...mapActions(['fetchCurrencies']),
+
+        saveOptionValue() {
+            const select = this.$refs.currencySelect as HTMLSelectElement;
+            const selectedOption: string =
+                select.options[select.selectedIndex].value;
+            localStorage.setItem('optionInput', selectedOption);
+            this.setOptionInput(selectedOption);
+        },
+
+        saveRadioInputValue() {
+            const input = document.querySelector(
+                'input[type="radio"]:checked',
+            ) as HTMLInputElement;
+            this.setValueInput(input.value);
+        },
 
         updateOptionInputOnMounted(): void {
             this.fetchCurrencies();
-            this.addOptionValueToOptionInputAndLocalStorageOnMounted();
-            this.findCurrencieCodeWithCurrencyMapAndAddToState();
+            this.saveOptionValue();
+            this.findCurrencieCode();
             this.findCurrencieWithCurrencyCode();
         },
         findSelectedCurrency(): void {
-            this.addOptionValueToOptionInputAndLocalStorageWithItsChanges();
-            this.findCurrencieCodeWithCurrencyMapAndAddToState();
+            this.saveOptionValue();
+            this.findCurrencieCode();
             this.findCurrencieWithCurrencyCode();
             this.optionInput = localStorage.getItem('optionInput') || '';
         },
@@ -212,7 +221,7 @@ export default defineComponent({
     width: 20em;
 }
 
-.option-input {
+.radio-input {
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none;
@@ -236,13 +245,13 @@ export default defineComponent({
     position: relative;
     z-index: 1000;
 }
-.option-input:hover {
+.radio-input:hover {
     background: #6ac054;
 }
-.option-input:checked {
+.radio-input:checked {
     background: #12c0b2;
 }
-.option-input:checked::before {
+.radio-input:checked::before {
     width: 40px;
     height: 40px;
     display: flex;
@@ -255,7 +264,7 @@ export default defineComponent({
     justify-content: center;
     color: #fff;
 }
-.option-input:checked::after {
+.radio-input::after {
     -webkit-animation: click-wave 0.65s;
     -moz-animation: click-wave 0.65s;
     animation: click-wave 0.65s;
@@ -265,10 +274,10 @@ export default defineComponent({
     position: relative;
     z-index: 100;
 }
-.option-input.radio {
+.radio-input.radio {
     border-radius: 50%;
 }
-.option-input.radio::after {
+.radio-input.radio::after {
     border-radius: 50%;
 }
 

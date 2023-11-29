@@ -1,31 +1,21 @@
 <template>
-    <button class="button">
+    <button class="button" :style="buttonStyles">
         <slot></slot>
     </button>
 </template>
 
 <script lang="ts">
-export default { name: 'ButtonForConvert' };
+import { defineComponent, PropType } from 'vue';
+export default defineComponent({
+    name: 'ButtonComponent',
+    props: {
+        buttonStyles: {
+            type: Object as PropType<Record<string, string>>,
+            default: () => ({}),
+            required: true,
+        },
+    },
+});
 </script>
 
-<style scoped>
-.button {
-    font-size: 1.5rem;
-    width: 100%;
-    height: 65px;
-    border: 2px solid #18aa66;
-    background-color: #18aa66;
-    box-shadow: 2px 2px 2px #6ac054;
-    padding: 15px;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 10px 5px 10px 5px;
-}
-
-.button:hover {
-    background-color: #6ac054;
-    box-shadow: 2px 2px 2px #18aa66;
-    transform: scale(1.01);
-    transition: all 0.9s;
-}
-</style>
+<style scoped></style>

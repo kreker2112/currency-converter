@@ -8,7 +8,13 @@
             placeholder="Введите сумму"
             @input="updateInput"
         />
-        <small-button @click="clearInput"> Очистить </small-button>
+        <ButtonComponent
+            class="button"
+            :buttonStyles="buttonStyles"
+            @click="clearInput"
+        >
+            Очистить
+        </ButtonComponent>
     </div>
 </template>
 
@@ -25,6 +31,22 @@ export default defineComponent({
         },
     },
     emits: ['update:modelValue', 'clearInput'],
+    data() {
+        return {
+            buttonStyles: {
+                backgroundColor: '#18aa66',
+                border: 'none',
+                borderRadius: '0 10px 10px 0',
+                color: '#fff',
+                padding: '10px 15px',
+                fontSize: '1rem',
+                fontFamily:
+                    'LucidaSans, LucidaSansRegular, LucidaGrande, LucidaSansUnicode, Geneva, Verdana, sansSerif',
+                cursor: 'pointer',
+                transition: 'all 0.9s',
+            },
+        };
+    },
 
     methods: {
         updateInput(input: Event): void {
@@ -64,5 +86,8 @@ input[type='number'] {
     display: flex;
     flex-direction: row;
     gap: 0;
+}
+.button:hover {
+    background-color: #6ac054 !important;
 }
 </style>
