@@ -18,7 +18,7 @@ export default defineComponent({
                 | 'currencies-list'
                 | 'cancel-result'
             >,
-            default: 'button',
+            default: '',
         },
     },
 });
