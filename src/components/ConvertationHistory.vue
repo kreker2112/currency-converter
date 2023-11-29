@@ -22,24 +22,6 @@ import { mapGetters, mapMutations } from 'vuex';
 
 export default defineComponent({
     name: 'ConvertationHistory',
-    data(): {
-        buttonStyles: Record<string, string>;
-    } {
-        return {
-            buttonStyles: {
-                fontSize: '12px',
-                margin: '0 0 15px 0px',
-                width: '150px',
-                height: '30px',
-                border: '2px solid #18aa66',
-                backgroundColor: '#18aa66',
-                boxShadow: '2px 2px 2px #6ac054',
-                color: '#fff',
-                cursor: 'pointer',
-                borderRadius: '10px 5px 10px 5px',
-            },
-        };
-    },
 
     computed: {
         ...mapGetters(['getCurrenciesHistory']),

@@ -30,22 +30,6 @@ export default defineComponent({
         },
     },
     emits: ['update:modelValue', 'clearInput'],
-    data() {
-        return {
-            buttonStyles: {
-                backgroundColor: '#18aa66',
-                border: 'none',
-                borderRadius: '0 10px 10px 0',
-                color: '#fff',
-                padding: '10px 15px',
-                fontSize: '1rem',
-                fontFamily:
-                    'LucidaSans, LucidaSansRegular, LucidaGrande, LucidaSansUnicode, Geneva, Verdana, sansSerif',
-                cursor: 'pointer',
-                transition: 'all 0.9s',
-            },
-        };
-    },
 
     methods: {
         updateInput(input: Event): void {

@@ -20,28 +20,7 @@ import { defineComponent } from 'vue';
 import { mapGetters } from 'vuex';
 export default defineComponent({
     name: 'ResultPage',
-    data(): {
-        buttonStyles: Record<string, string>;
-    } {
-        return {
-            buttonStyles: {
-                fontSize: '1rem',
-                width: '20em',
-                height: '65px',
-                border: '2px solid #18aa66',
-                backgroundColor: '#18aa66',
-                boxShadow: '2px 2px 2px #6ac054',
-                padding: '10px 15px',
-                fontFamily:
-                    'LucidaSans, LucidaSansRegular, LucidaGrande, LucidaSansUnicode, Geneva, Verdana, sansSerif',
-                color: '#fff',
-                cursor: 'pointer',
-                borderRadius: '10px',
-                transition: 'all 0.9s',
-                marginTop: '20px',
-            },
-        };
-    },
+
     computed: {
         ...mapGetters(['getResult', 'getOptionInput']),
     },
