@@ -5,20 +5,44 @@
             <span>{{ getResult }} {{ getOptionInput }}</span>
         </div>
         <div class="buttons buttons__contaier">
-            <small-button
-                class="button calculate-button"
+            <ButtonComponent
+                class="button"
+                :buttonStyles="buttonStyles"
                 @click="cancelOperation"
             >
                 Вернуться в начало
-            </small-button>
+            </ButtonComponent>
         </div>
     </div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import { mapGetters } from 'vuex';
-export default {
+export default defineComponent({
     name: 'ResultPage',
+    data(): {
+        buttonStyles: Record<string, string>;
+    } {
+        return {
+            buttonStyles: {
+                fontSize: '1rem',
+                width: '20em',
+                height: '65px',
+                border: '2px solid #18aa66',
+                backgroundColor: '#18aa66',
+                boxShadow: '2px 2px 2px #6ac054',
+                padding: '10px 15px',
+                fontFamily:
+                    'LucidaSans, LucidaSansRegular, LucidaGrande, LucidaSansUnicode, Geneva, Verdana, sansSerif',
+                color: '#fff',
+                cursor: 'pointer',
+                borderRadius: '10px',
+                transition: 'all 0.9s',
+                marginTop: '20px',
+            },
+        };
+    },
     computed: {
         ...mapGetters(['getResult', 'getOptionInput']),
     },
@@ -28,7 +52,7 @@ export default {
             this.$router.push('/converter');
         },
     },
-};
+});
 </script>
 
 <style scoped>
@@ -62,10 +86,5 @@ span {
     flex-direction: column;
     align-items: center;
     margin-bottom: 10px;
-}
-.button.calculate-button {
-    margin-top: 20px;
-    border-radius: 10px;
-    width: 20em;
 }
 </style>

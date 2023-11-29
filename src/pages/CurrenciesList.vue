@@ -1,18 +1,18 @@
 <template>
-    <div class="currencies__list" @submit.prevent>
+    <div class="currencies__list" ref="currenciesList">
         <fieldset class="fieldset__container">
             <legend for="currency-select" class="currencies-legend__header">
                 Выберите, пожалуйста, валюту для конвертации
             </legend>
 
             <div class="amount__sum">
-                <strong>Сумма для обмена:</strong> {{ getAmount }}
+                <strong>Сумма для обмена:</strong> {{ amount }}
             </div>
 
             <div class="currency currency-select">
                 <select
-                    id="currency-select"
                     ref="currencySelect"
+                    id="currency-select"
                     class="currency currency-select__list"
                     name="currency"
                     @change="findSelectedCurrency"
@@ -26,9 +26,8 @@
                 <div class=".currency currency__container">
                     <input
                         id="rateBuy"
-                        ref="radioInput"
                         type="radio"
-                        class="radio-input radio"
+                        class="option-input radio"
                         name="convert"
                         value="rateBuy"
                         checked
@@ -42,9 +41,8 @@
                 <div class=".currency currency__container">
                     <input
                         id="rateSell"
-                        ref="radioInput"
                         type="radio"
-                        class="radio-input radio"
+                        class="option-input radio"
                         name="convert"
                         value="rateSell"
                         @click="saveRadioInputValue"
@@ -55,18 +53,20 @@
                 </div>
             </div>
             <div class="buttons buttons__contaier">
-                <small-button
-                    class="button calculate-button"
+                <ButtonComponent
+                    class="button"
+                    :buttonStyles="buttonStyles"
                     @click.prevent="calculate"
                 >
                     Посчитать
-                </small-button>
-                <small-button
-                    class="button calculate-button"
-                    @click="cancelOperation"
+                </ButtonComponent>
+                <ButtonComponent
+                    class="button"
+                    :buttonStyles="buttonStyles"
+                    @click.prevent="cancelOperation"
                 >
                     Отменить операцию
-                </small-button>
+                </ButtonComponent>
             </div>
         </fieldset>
     </div>
@@ -85,10 +85,26 @@ export default defineComponent({
     data(): {
         amount: Amount;
         optionInput: OptionInput;
+        buttonStyles: Record<string, string>;
     } {
         return {
             amount: '',
             optionInput: '',
+            buttonStyles: {
+                marginTop: '20px',
+                backgroundColor: '#18aa66',
+                border: 'none',
+                color: '#fff',
+                padding: '10px 15px',
+                fontSize: '1rem',
+                fontFamily:
+                    'LucidaSans, LucidaSansRegular, LucidaGrande, LucidaSansUnicode, Geneva, Verdana, sansSerif',
+                cursor: 'pointer',
+                transition: 'all 0.9s',
+                width: '20em',
+                height: '65px',
+                borderRadius: '10px',
+            },
         };
     },
 
@@ -101,7 +117,7 @@ export default defineComponent({
         this.fetchCurrencies();
         this.updateOptionInputOnMounted();
         this.saveRadioInputValue();
-
+        console.log(this.$refs.currenciesList);
         this.optionInput = localStorage.getItem('optionInput') || '';
     },
 
@@ -200,12 +216,14 @@ export default defineComponent({
 }
 
 .currency.currency-select__list {
+    width: auto;
     font-size: 20px;
     font-weight: bold;
     padding: 5px;
     border-radius: 5px;
     border: 2px solid #12c0b2;
     outline: none;
+    text-align: center;
 }
 
 .buttons.buttons__contaier {
@@ -215,13 +233,12 @@ export default defineComponent({
     align-items: center;
     margin-bottom: 10px;
 }
-.button.calculate-button {
-    margin-top: 20px;
-    border-radius: 10px;
-    width: 20em;
+
+.button:hover {
+    background-color: #6ac054 !important;
 }
 
-.radio-input {
+.option-input {
     -webkit-appearance: none;
     -moz-appearance: none;
     -ms-appearance: none;
@@ -245,13 +262,13 @@ export default defineComponent({
     position: relative;
     z-index: 1000;
 }
-.radio-input:hover {
+.option-input:hover {
     background: #6ac054;
 }
-.radio-input:checked {
+.option-input:checked {
     background: #12c0b2;
 }
-.radio-input:checked::before {
+.option-input:checked::before {
     width: 40px;
     height: 40px;
     display: flex;
@@ -264,7 +281,7 @@ export default defineComponent({
     justify-content: center;
     color: #fff;
 }
-.radio-input::after {
+.option-input:checked::after {
     -webkit-animation: click-wave 0.65s;
     -moz-animation: click-wave 0.65s;
     animation: click-wave 0.65s;
@@ -274,10 +291,10 @@ export default defineComponent({
     position: relative;
     z-index: 100;
 }
-.radio-input.radio {
+.option-input.radio {
     border-radius: 50%;
 }
-.radio-input.radio::after {
+.option-input.radio::after {
     border-radius: 50%;
 }
 
