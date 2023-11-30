@@ -60,7 +60,7 @@ export default defineComponent({
     padding: 15px;
     width: 350px;
     height: calc(100vh - 156px);
-    border: 4px solid #12c0b2;
+    border-left: 4px solid #12c0b2;
     overflow-y: scroll;
 }
 .convertation-history__header {

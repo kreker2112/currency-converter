@@ -1,5 +1,5 @@
 <template>
-    <div class="input__container">
+    <div class="currency-input__container">
         <input
             v-focus
             :value="modelValue"
@@ -45,6 +45,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.currency-input__container {
+    display: flex;
+    flex-direction: row;
+    gap: 0;
+    /* height: 100px; */
+}
 .input {
     position: relative;
     width: 100%;
@@ -63,15 +69,5 @@ input::-webkit-inner-spin-button {
 
 input[type='number'] {
     appearance: textfield; /* Firefox */
-}
-
-.input__container {
-    display: flex;
-    flex-direction: row;
-    gap: 0;
-    /* height: 100px; */
-}
-.button:hover {
-    background-color: #6ac054 !important;
 }
 </style>
