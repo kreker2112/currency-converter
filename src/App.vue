@@ -1,15 +1,15 @@
 <template>
     <div class="app">
-        <component :is="currentLayout">
+        <component :is="currentComponent">
             <router-view />
         </component>
     </div>
 </template>
 
 <script>
-import currencyLayout from '@/layouts/currencyLayout.vue'
-import defaultLayout from '@/layouts/defaultLayout.vue'
-import { mapMutations } from 'vuex'
+import currencyLayout from '@/layouts/currencyLayout.vue';
+import defaultLayout from '@/layouts/defaultLayout.vue';
+import { mapMutations } from 'vuex';
 export default {
     name: 'App',
     components: {
@@ -18,27 +18,28 @@ export default {
     },
     computed: {
         currentLayout() {
-            return this.$route.meta.layout
+            console.log(this.$route.meta.layout);
+            return this.$route.meta.layout;
         },
     },
 
     mounted() {
-        this.initExchangeHistory()
+        this.initExchangeHistory();
     },
     methods: {
         ...mapMutations(['setCurrenciesHistory']),
         initExchangeHistory() {
             const exchangeHistory = JSON.parse(
                 localStorage.getItem('convertListItemsArray'),
-            )
-            const exchangeHistoryArray = exchangeHistory
-            this.setCurrenciesHistory(exchangeHistoryArray)
+            );
+            const exchangeHistoryArray = exchangeHistory;
+            this.setCurrenciesHistory(exchangeHistoryArray);
         },
     },
-}
+};
 </script>
 
-<style>
+<style lang="scss">
 * {
     margin: 0;
     padding: 0;
